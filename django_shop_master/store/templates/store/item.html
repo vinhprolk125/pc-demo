@@ -1,0 +1,50 @@
+{% extends 'store/base.html' %}
+{%load static%}
+{% block title %}PC Demo{% endblock  %}
+
+{% block content %}
+
+
+<div class="container">
+            <div class="row">
+               <div class="col-lg-3">
+                    
+                </div> 
+               {% for product in posts %}
+               
+                <div class="col-lg-9">
+                    <div class="card mt-4">
+                        <img  src="{{product.imageURL}}" alt="..."  width="500" height="500">
+                        <div class="card-body">
+                         
+                            <h3 class="card-title">{{product.namePD}}</h3>
+                            <h4>Giá: {{product.prices}} VND</h4>
+                            <p class="card-text">{{product.description|safe|linebreaks}}</p>
+                            <!--<span class="text-warning">★ ★ ★ ★ ☆</span>
+                            4.0 stars -->
+                            <button onclick="click_add()" data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Thêm vào giỏ hàng</button>
+                            
+                        </div>
+                    </div>
+                    <div class="card card-outline-secondary my-4">
+                        <div class="card-header">Thông tin sản phẩm</div>
+                        <div class="card-body">
+                            
+                            <p class="card-text">{{product.body|safe|linebreaks}}</p>
+
+                          <!--  <a class="btn btn-success" href="#!">Leave a Review</a> -->
+                        </div>
+                    </div>
+                     {% endfor %}
+                </div>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+function click_add() {
+  alert("Đã thêm vào giỏ hàng");
+}
+</script>
+
+{% endblock  %}

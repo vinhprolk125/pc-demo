@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      {% load static %}
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+      <link rel="stylesheet" href="{% static 'base.css' %}" type="text/css">
+      <link rel="stylesheet" href="{% static 'css/home.css' %}" type="text/css">
+      <link rel="stylesheet" href="{% static 'css/shop.css' %}" type="text/css">
+      <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+      
+      
+
+
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <title>{% block title %}{% endblock  %}</title>
+      <script type="text/javascript">
+		var user = '{{request.user}}'
+
+		function getToken(name) {
+		    var cookieValue = null;
+		    if (document.cookie && document.cookie !== '') {
+		        var cookies = document.cookie.split(';');
+		        for (var i = 0; i < cookies.length; i++) {
+		            var cookie = cookies[i].trim();
+		            // Does this cookie string begin with the name we want?
+		            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+		                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		                break;
+		            }
+		        }
+		    }
+		    return cookieValue;
+		}
+		var csrftoken = getToken('csrftoken')
+
+		function getCookie(name) {
+		    // Split cookie string and get all individual name=value pairs in an array
+		    var cookieArr = document.cookie.split(";");
+
+		    // Loop through the array elements
+		    for(var i = 0; i < cookieArr.length; i++) {
+		        var cookiePair = cookieArr[i].split("=");
+
+		        /* Removing whitespace at the beginning of the cookie name
+		        and compare it with the given string */
+		        if(name == cookiePair[0].trim()) {
+		            // Decode the cookie value and return
+		            return decodeURIComponent(cookiePair[1]);
+		        }
+		    }
+
+		    // Return null if not found
+		    return null;
+		}
+		var cart = JSON.parse(getCookie('cart'))
+
+		if (cart == undefined){
+			cart = {}
+			console.log('Cart Created!', cart)
+			document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+		}
+		console.log('Cart:', cart)
+	
+	</script>
+
+      <style>/* Nút back to top*/
+         #myBtn {
+         display: none;
+         position: fixed;
+         bottom: 20px;
+         right: 30px;
+         z-index: 99;
+         font-size: 18px;
+         border: none;
+         outline: none;
+         background-color: red;
+         color: white;
+         cursor: pointer;
+         padding: 15px;
+         border-radius: 4px;
+         }
+         #myBtn:hover {
+         background-color: #d3d3d3;
+         }
+      </style>
+      <style> /*Thanh điều hướng */
+         ul#navbar {
+         list-style-type: none;
+         margin: 0;
+         padding: 0;
+         overflow: hidden;
+         background-color: white;
+         position: fixed;
+         top: 0;
+         width: 100%;
+         }
+         ul#navbar li {
+         float: left;
+         }
+         ul#navbar li a {
+         display: block;
+         color: red;
+         text-align: center;
+         padding: 14px 16px;
+         text-decoration: none;
+         }
+         ul#navbar li a:hover {
+         background-color: #d3d3d3;
+         }
+      </style>
+      <style>/*Menu sản phẩm*/
+         ul#menu, ul#menu ul#sub {
+         padding:0;
+         margin: 0;
+         }
+         ul#menu{
+         position: fixed;
+         top: 100px;
+         z-index: 99;
+         } 
+         ul#menu li {
+         list-style-type: none;    /* code này để bỏ các dấu chấm tròn*/
+         float: left;    /* code này để menu dàn hàng ngang*/
+         margin-right: 10px;    /* tạo lề cho các menu*/
+         width: 700px;
+         }
+         ul#menu li a {
+         text-decoration: none;
+         background-color: rgb(179, 28, 28); 
+         padding: 5px;
+         color: white;
+         }
+         ul#menu li {
+         positon: relative;
+         }
+         ul#menu li ul#sub {
+         display: none;
+         position: absolute;
+         /* width: 150px; */
+         }
+         ul#menu li ul#sub li {
+         margin-top: 10px;
+         margin-bottom: 5px;
+         }
+         ul#menu li:hover ul#sub {
+         display: block;
+         }
+         ul#menu li:hover ul#linhkien {
+         display: block;
+         }
+         ul#menu li:hover ul#manhinh {
+         display: block;   
+         }
+         ul#menu li ul#sub li ul#manhinh {
+         display: none;
+         }
+         ul#menu li ul#sub li ul#linhkien {
+         display: none;
+         }
+         ul#menu li ul#sub li:hover ul#linhkien {display: block;}
+         ul#menu li ul#sub li:hover ul#manhinh {display: block;}
+      </style>
+      <style> /* Thanh tim kiem */
+         * {
+         box-sizing: border-box;
+         }
+         form.example input[type=text] {
+         padding: 10px;
+         font-size: 17px;
+         border: 1px solid grey;
+         float: left;
+         width: 80%;
+         background: #f1f1f1;
+         }
+         form.example button {
+         float: left;
+         width: 20%;
+         padding: 10px;
+         background: #2196F3;
+         color: white;
+         font-size: 17px;
+         border: 1px solid grey;
+         border-left: none;
+         cursor: pointer;
+         }
+         form.example button:hover {
+         background: #0b7dda;
+         }
+         form.example::after {
+         content: "";
+         clear: both;
+         display: table;
+         }
+      </style>
+         <style>
+         #cart-total{
+	      display: block;
+	      text-align: center;
+	      color:#fff;
+      	background-color: red;
+	      width: 20px;
+	      height: 25px;
+      	border-radius: 50%;
+	      font-size: 14px;
+}
+         </style>
+
+
+         <style>
+         .cart_button {
+            float:right;
+	background-color:#ffffff;
+	border:1px solid #f70000;
+	display:inline-block;
+	cursor:pointer;
+	color:#ff0000;
+	font-family:Arial;
+	font-size:20px;
+	padding:16px 31px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+}
+.cart_button:hover {
+	background-color:#ededed;
+}
+.cart_button:active {
+	position:relative;
+	top:1px;
+}
+}
+         </style>
+
+   </head>
+   <body>
+      <div class="container-fluid">
+         <div class="row">
+            <div class="col-sm-10">
+               <br>
+            </div>
+            <div class="col-sm-3">
+            </div>
+         </div>
+      </div>
+      <br>        
+      <ul id="navbar">
+         <li><a href="/">
+            <img src="{% static 'images/logo.png' %}" class="responsive-img" style="max-height:80px"/>
+            </a>
+         </li>
+         <br>
+         <!-- <li><a href="#contact"></a></li> -->
+         <li>
+         <form class="form-inline my-2 my-lg-0" method="GET" action="{% url 'search' %}" >
+            <input class="form-control mr-sm-2" type="search" name="search">
+            <button class="btn btn btn-outline-info my-2 my-sm-0" type="submit"> Search </button>
+        </form>
+         </li>
+         <li><a class="active" href="/">Trang chủ</a></li>
+         <li><a class="active" href="{% url 'store' %}">Cửa hàng</a></li>
+         
+         <li><a href="{% url 'blog' %}">Tin tức</a></li>
+         <li><a href="{% url 'contact' %}">Liên hệ</a></li>
+         
+          <a href="/cart" class="cart_button">Giỏ hàng</a>
+         
+        
+         {% if user.username %}
+         <li  style="float:right"> <a href="{% url 'logout' %}">Đăng xuất</a></li>
+         <li  style="float:right"><a> Xin chào {{user.username}}</a></li>
+         {% else %} 
+         <li style="float:right"><a href="{% url 'login' %}">Đăng nhập</a></li>
+         <li style="float:right"><a href="{% url 'register' %}">Đăng ký</a></li>
+         {% endif %} 
+
+        
+      </ul>
+      <div style="background-color:white;color:white;padding:20px;">
+         <ul id="menu">
+            <li>
+               <a href="#">Danh mục</a>
+               <ul id="sub">
+                  <li>
+                     <a href="#">Linh kiện PC</a>
+                     <ul id="linhkien">
+                        <a href="/mainboard">Mainboard</a>
+                        <a href="/cpu">CPU</a>
+                        <a href="/ram">RAM</a>
+                        <a href="/vga">VGA</a>
+                        <a href="/ssd">Ổ cứng SSD</a>
+                        <a href="/hdd">Ổ cứng HDD</a>
+                        <a href="/psu">Nguồn</a>
+                        <a href="/case">Case</a>
+                     </ul>
+                  </li>
+                  <li>
+                     <a href="/man_hinh">Màn hình</a>
+                     <ul id="manhinh">
+                        <li><a href="#">Màn hình ASUS</a></li>
+                        <li><a href="#">Màn Hình Dell</a></li>
+                        <li><a href="#">Màn hình LG</a></li>
+                     </ul>
+                  </li>
+                  <li><a href="/chuot">Chuột</a></li>
+                  <li><a href="/ban_phim">Bàn phím</a></li>
+                  <li><a href="/tai_nghe">Tai nghe</a></li>
+                  <li><a href="/ghe_gaming">Ghế gaming</a></li>
+                  <li><a href="/phu_kien">Phụ kiện</a></li>
+               </ul>
+            </li>
+         </ul>
+      </div>
+      <header>
+      </header>
+      <div class="container-fluid">
+         <div class="row">
+            <div class="col-sm-7">
+               <!--
+                  <center><img src="{% static 'images/tower.jpg' %}" class="responsive-img" style="max-height:10000px"/></center>
+                   <center><img src="{% static 'images/tower.jpg' %}" class="responsive-img" style="max-height:10000px"/></center>
+                   <center><img src="{% static 'images/tower.jpg' %}" class="responsive-img" style="max-height:10000px"/></center>
+                   
+                  
+                  <img src="{% static 'images/tower.jpg' %}" class="responsive-img" style="max-height:10000px"/>
+                  -->
+            </div>
+         </div>
+      </div>
+      <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+      <script>
+         //Get the button
+         var mybutton = document.getElementById("myBtn");
+         
+         // When the user scrolls down 20px from the top of the document, show the button
+         window.onscroll = function() {scrollFunction()};
+         
+         function scrollFunction() {
+           if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+             mybutton.style.display = "block";
+           } else {
+             mybutton.style.display = "none";
+         
+           }
+         }
+         
+         // When the user clicks on the button, scroll to the top of the document
+         function topFunction() {
+           document.body.scrollTop = 0;
+           document.documentElement.scrollTop = 0;
+         }
+         
+      </script>
+     <div class="container">
+            <br>
+      {% block content %}
+
+      {% endblock  %}
+      </div>
+       <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+
+	   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+	   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+      <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+   </body>
+</html>

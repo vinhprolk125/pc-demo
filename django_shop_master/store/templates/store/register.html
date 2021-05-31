@@ -1,0 +1,21 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block title %}Đăng ký{% endblock  %}
+{% block content %}
+    <center>
+        <form action="." method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" value="Đăng kí"/>
+            
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </form>
+        
+    </center>
+{% endblock content %} 
