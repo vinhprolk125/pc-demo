@@ -14,14 +14,185 @@
 -->
 
 <div class="row">
-  <div class="col-8 menu">
+  <div class="menu">
    <center><img src="static/images/slideshow.jpg" class="responsive-img" style="max-height:50000px"/></center>
   </div>
+</div>
+</div>
 
-  <div class="col-4">
-    <img src="static/images/loa.jpg">
-    <img src="static/images/laptop.jpg">
+<div class="text-center">  
+  <img src="static/images/laptop.jpg" style="width:300px;height:156px;">
+  <img src="static/images/loa.jpg" style="width:300px;height:156px;">
+  <img src="static/images/laptop.jpg" style="width:300px;height:156px;">
+  <img src="static/images/loa.jpg" style="width:300px;height:156px;">
+</div>
+
+<div class="container">
+  <div id="mainframe">
+    <div class="container pd0-sm-mb" >
+      <div id="featured-new-product">
+        <h2 class="new-product-title" >
+          Sản phẩm mới nhất
+        </h2>	
+        {% for product in posts %}
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card h-100">
+            <a href="#!"><img class="card-img-top" src="{{product.image.url}}" alt="..." /></a>
+            <div class="card-body">
+              <h5 class="card-title"><a href="/store/{{product.urlsPD}}">{{product.namePD}}</a></h5>
+              <h5>{{product.prices}} VND</h5>
+            </div>
+            <!-- <div class="card-footer"><small class="text-muted">★ ★ ★ ★ ☆</small></div> -->
+          </div>
+        </div>              
+        {% endfor %}
+      </div>
+    </div>
   </div>
 </div>
 
+<div class="container">
+  <div id="mainframe">
+    <div class="container pd0-sm-mb" >
+      <div id="featured-new-product">
+        <h2 class="new-product-title" >
+          Mainboard - Bo mạch chủ
+        </h2>	
+        {% for product in posts %}
+          {% if product.typePD == "Mainboard" %}
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="card h-100">
+                <a href="#!"><img class="card-img-top" src="{{product.image.url}}" alt="..." /></a>
+                <div class="card-body">
+                  <h5 class="card-title"><a href="/store/{{product.urlsPD}}">{{product.namePD}}</a></h5>
+                  <h5>{{product.prices}} VND</h5>
+                </div>
+                <!-- <div class="card-footer"><small class="text-muted">★ ★ ★ ★ ☆</small></div> -->
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div id="mainframe">
+    <div class="container pd0-sm-mb" >
+      <div id="featured-new-product">
+        <h2 class="new-product-title" >
+          CPU
+        </h2>	
+        {% for product in posts %}
+          {% if product.typePD == "CPU" %}
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="card h-100">
+                <a href="#!"><img class="card-img-top" src="{{product.image.url}}" alt="..." /></a>
+                <div class="card-body">
+                  <h5 class="card-title"><a href="/store/{{product.urlsPD}}">{{product.namePD}}</a></h5>
+                  <h5>{{product.prices}} VND</h5>
+                </div>
+                <!-- <div class="card-footer"><small class="text-muted">★ ★ ★ ★ ☆</small></div> -->
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div id="mainframe">
+    <div class="container pd0-sm-mb" >
+      <div id="featured-new-product">
+        <h2 class="new-product-title" >
+          Ổ cứng
+        </h2>	
+        {% for product in posts %}
+          {% if product.typePD == "SSD" or product.typePD == "HDD" %}
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="card h-100">
+                <a href="#!"><img class="card-img-top" src="{{product.image.url}}" alt="..." /></a>
+                <div class="card-body">
+                  <h5 class="card-title"><a href="/store/{{product.urlsPD}}">{{product.namePD}}</a></h5>
+                  <h5>{{product.prices}} VND</h5>
+                </div>
+                <!-- <div class="card-footer"><small class="text-muted">★ ★ ★ ★ ☆</small></div> -->
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="register-email">
+<form accept-charset='UTF-8' action='/' class='contact-form' method='post'>
+<input name='form_type' type='hidden' value='customer'>
+<input name='utf8' type='hidden' value='✓'>
+
+<div class="container main">
+	<div class="get_email">
+		<div id="intro-text" class="pull-left col-sm-7 col-xs-12 pull-left">Máy tính cao cấp & Thiết bị chơi Game PC Demo</div>
+			<div id="frame_sbemail" class="pull-left col-sm-4 col-xs-12 pull-right">
+				<form class="form-inline input-group" id="signup" action="/" method="get">
+					<div class="input-group input-group-sm">
+						<input type="text" class="form-control" name="contact[email]" id="your_email" placeholder="Nhập email của bạn">
+							<span class="input-group-btn">
+								<button name="bt_submitemail" id="bt_submitemail" class="btn btn-default" type="submit">Đăng ký</button>
+							</span>
+					</div>
+				</form>
+			</div>
+			<div class="clr"></div>
+		</div>
+	</div>
+</div>
+	
+<div id="footer">
+	<div class="container">
+		<div id="user1" class="col-sm-4 col-xs-12">
+			<div class="moduletable">
+				<h3>Group 13</h3>
+					<div class="custom" >
+						<h3 class="title-footer-2">	Email: 18521549@gm.uit.edu.vn<br/></h3>
+						  <p style="font-size: 14px">
+								<b>SỐ ĐIỆN THOẠI:</b> (8h-20h)<br/>
+							<table style="width: 296px;">
+								<tbody>
+									<tr>
+										<td style="width: 211px;">Gọi mua hàng</td>
+										<td style="width: 105px;"><strong>0123456789</strong></td>
+									</tr>
+									<tr>
+										<td style="width: 211px;">Hỗ trợ khách hàng</td>
+										<td style="width: 105px;"><strong>0123456789</strong></td>
+									</tr>
+                </tbody>
+							</table> 
+          </div>
+        </div>
+			</div>
+    <div id="user2" class="col-sm-5 col-xs-12">
+			<div class="moduletable">
+        <a href="#">
+					<p style="font-size: 16px; display: inline">
+						<b>ĐỊA CHỈ:</b>
+					</p>
+				</a>	
+					<p style="display: inline">
+					</p>
+					<br/>
+					<p style="font-size: 14px; padding-top: 4px">
+						<b>HỒ CHÍ MINH</b> (Làm việc từ 8h00 - 22h00) <br/>
+						- Địa chỉ : Khu phố 6, P.Linh Trung, Q.Thủ Đức, TP.Hồ Chí Minh.
+					<br/>
+					</p>
+      </div>
+    </div>
+  </div>
+</div>	
 {% endblock  %}

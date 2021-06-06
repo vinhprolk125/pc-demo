@@ -13,7 +13,17 @@ from django.contrib import messages
 
 
 def index(request):
-    return render(request, 'store/home.html')
+    posts = Product.objects.all().order_by("-id")
+    search_query = request.GET.get('q')
+    if search_query:
+        posts = posts.filter(
+            Q(namePD__icontains = search_query) |
+            Q(typesPD__icontains = search_query)
+        )
+    context={
+        'posts': posts
+    }
+    return render(request, 'store/home.html', context)
 def contact(request):
     return render(request, 'store/contact.html')
 def error404(request,exception):
