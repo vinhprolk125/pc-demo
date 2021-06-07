@@ -7,7 +7,9 @@ class OrderItemAdmin(admin.ModelAdmin):
     list_display = ['productname','order','quantity']
 admin.site.register(Order)
 admin.site.register(OrderItem,OrderItemAdmin)
-admin.site.register(ShippingAddress)
+class ShippingAddressAdmin(admin.ModelAdmin):
+    list_display = ['address','order','customer']
+admin.site.register(ShippingAddress,ShippingAddressAdmin)
 
 class CommentInLine(admin.TabularInline):
     model = Comments
