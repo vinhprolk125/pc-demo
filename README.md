@@ -1,0 +1,1 @@
+PCDemo is a website specializing in selling high-end computers, PC components, gaming devices and technology accessories. Includes simple features such as account registration, product management, product search, navigation menu, shopping cart and payment, technology news blog.
